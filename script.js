@@ -68,9 +68,9 @@ function createCalendar() {
     ];
 
     let notes = [
-        "Hari pertama!", "Jangan lupa makan ya!", "Kamu hebat!", "Tetap semangat!", 
-        "Hari ini menyenangkan!", "Love you!", "Semoga harimu indah!", "Jangan menyerah!", 
-        "Hari yang cerah!", "Sampai jumpa besok!"
+        "Hehe lagi tidurrr, kangennn sini tidurrr", "UAS kelas 12 pake baju daerah wkwkkw", "Dulu iseng gambarr hehe skrg cuman bisa coret2", "Kerjaan gw sama visel pas sem 1 di kelas b indo wkwkwk", 
+        "Nginep di apart temennn", "hehe", "Dulu belajar gitarr tapi ga bisa2 wkwkkw", "efwaipiii duluu", 
+        "Foto antique. H-1 yeeeyyy", "Foto sama bocyil di ikeaa. Yeeeeyy ketemuu jugaaaaa"
     ];
     
     for (let i = 0; i < 10; i++) {
