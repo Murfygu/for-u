@@ -100,10 +100,10 @@ function createCalendar() {
                 createPopup(images[i], notes[i]);
             } else if (dateString < currentDate) {
                 // Jika tanggal sudah lewat tapi belum diklik, munculkan pesan
-                createPopup("", "Kamu telah melewati hari ini tanpa membuka, tidak bisa diakses.");
+                createPopup("", "Kamu telah melewati hari ini tanpa membuka :(, jadi fotonya ga bisa diakses.");
             } else {
                 // Jika tanggal belum diklik dan bukan hari ini, munculkan pesan
-                createPopup("", `Belum bisa diakses, datang lagi di tanggal ${dateString} untuk membuka.`);
+                createPopup("", `Belum bisa diakses, datang lagi di tanggal ini untuk membuka. Sabar yaaa`);
             }
         });
         
