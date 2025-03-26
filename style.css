@@ -1,0 +1,143 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    /* background-color: rgb(245, 199, 206); */
+    background-color: antiquewhite;
+}
+
+h1{
+    text-align: center;
+    color: maroon;
+    font-size: 3rem;
+}
+
+.countdown-container{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: maroon;
+    font-size: xx-large;
+
+}
+
+.calendar-container{
+    text-align: center;
+    color: maroon;
+    font-size: large;
+    position: absolute;
+    bottom: 40px;
+}
+
+.calendar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+
+.day-box {
+    width: 60px;
+    height: 60px;
+    background: rgb(255, 193, 201);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(247, 147, 147);
+    cursor: pointer;
+    font-size: 1.2rem;
+    position: relative;
+    
+}
+
+.day-box.logged::after {
+    content: "❤️";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: smaller;
+}
+
+.day-box.today{
+    background-color: rgb(252, 126, 126);
+}
+
+.day-box.before{
+    background-color: rgb(247, 147, 147);
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+.floating-heart {
+    position: absolute;
+    font-size: 10px;
+    color: red;
+    animation: floatUp 3s ease-in-out forwards;
+    left: 50%;
+    transform: translateX(-50%);
+}
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-50px); opacity: 0; }
+}
+
+/* color: antiquewhite; */
+
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    position: relative;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    max-width: 300px;
+}
+
+.popup-content img {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.popup-content p {
+    font-size: 1rem;
+    color: maroon;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
