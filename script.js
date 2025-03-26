@@ -56,10 +56,8 @@ function createPopup(imageSrc, note) {
     document.body.appendChild(popup);
 }
 
-
 function createCalendar() {
     const calendarEl = document.getElementById("calendar");
-    const today = new Date();
     let logs = JSON.parse(localStorage.getItem("logs")) || {};
 
     let images = [
@@ -72,59 +70,55 @@ function createCalendar() {
         "Nginep di apart temennn", "hehe", "Dulu belajar gitarr tapi ga bisa2 wkwkkw", "efwaipiii duluu", 
         "Foto antique. H-1 yeeeyyy", "Foto sama bocyil di ikeaa. Yeeeeyy ketemuu jugaaaaa"
     ];
-    
+
+    // **Fixed Start Date: March 26, 2025**
+    const startDate = new Date(2025, 2, 26); // March is month 2 (0-based index)
+
     for (let i = 0; i < 10; i++) {
-        let date = new Date();
-        date.setDate(today.getDate() + i);
-        let dateString = date.toISOString().split("T")[0];
-        
+        let date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+
+        // ✅ Fix: Use local date format to prevent UTC time shift
+        let dateString = date.toLocaleDateString("en-CA"); // Format: YYYY-MM-DD
+
         let dayBox = document.createElement("div");
         dayBox.classList.add("day-box");
         dayBox.textContent = date.getDate();
-        
+
         if (logs[dateString]) {
             dayBox.classList.add("logged");
         }
-        
-        dayBox.addEventListener("click", function() {
-            let currentDate = new Date().toISOString().split("T")[0];
-        
+
+        dayBox.addEventListener("click", function () {
+            let currentDate = new Date().toLocaleDateString("en-CA");
+
             if (dateString === currentDate) {
-                // Jika hari ini, beri hati dan munculkan popup dengan foto
                 logs[dateString] = true;
                 localStorage.setItem("logs", JSON.stringify(logs));
                 dayBox.classList.add("logged");
                 createPopup(images[i], notes[i]);
             } else if (logs[dateString]) {
-                // Jika sudah pernah diklik sebelumnya, munculkan popup dengan foto
                 createPopup(images[i], notes[i]);
             } else if (dateString < currentDate) {
-                // Jika tanggal sudah lewat tapi belum diklik, munculkan pesan
-                createPopup("", "Kamu telah melewati hari ini tanpa membuka :(, jadi fotonya ga bisa diakses.");
+                createPopup("", "Kamu telah melewati hari ini tanpa membuka, tidak bisa diakses.");
             } else {
-                // Jika tanggal belum diklik dan bukan hari ini, munculkan pesan
-                createPopup("", `Belum bisa diakses, datang lagi di tanggal ini untuk membuka. Sabar yaaa`);
+                createPopup("", `Belum bisa diakses, datang lagi di tanggal ${dateString} untuk membuka.`);
             }
         });
-        
 
-        
-        let currentDate = new Date().toISOString().split("T")[0];
+        let currentDate = new Date().toLocaleDateString("en-CA");
         if (dateString === currentDate) {
             dayBox.classList.add("today");
-        }
-        else if(dateString <= currentDate){
+        } else if (dateString < currentDate) {
             dayBox.classList.add("before");
         }
-        
+
         calendarEl.appendChild(dayBox);
     }
 }
 
-
 // (format: YYYY, MM-1, DD, HH, MM, SS)
 const targetDate = new Date(2025, 3, 4, 17, 0, 0).getTime();
 startCountdown(targetDate);
-
 
 createCalendar();
