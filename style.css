@@ -141,3 +141,49 @@ h1{
     font-size: 20px;
     cursor: pointer;
 }
+
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .countdown-container {
+        font-size: large;
+        padding: 10px;
+    }
+
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* Buat grid 5 kolom */
+        gap: 5px;
+    }
+
+    .day-box {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .popup {
+        width: 90%;
+        max-width: 400px;
+        padding: 30px;
+    }
+
+    .popup-content img {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .close-btn {
+        font-size: 18px;
+        top: 5px;
+        right: 10px;
+    }
+}
