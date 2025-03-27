@@ -56,6 +56,27 @@ function createPopup(imageSrc, note) {
     document.body.appendChild(popup);
 }
 
+document.addEventListener("click", function(e) {
+    // Create a heart element
+    const heart = document.createElement("div");
+    heart.classList.add("click-heart");
+    heart.textContent = "❤️";
+    
+    // Position the heart at the click/touch coordinates
+    // Use clientX and clientY for mouse clicks, adjust for scrolling if needed
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+  
+    // Append the heart to the body
+    document.body.appendChild(heart);
+  
+    // Remove the heart after the animation completes (2 seconds)
+    setTimeout(() => {
+      heart.remove();
+    }, 2000);
+  });
+  
+
 function createCalendar() {
     const calendarEl = document.getElementById("calendar");
     let logs = JSON.parse(localStorage.getItem("logs")) || {};
@@ -100,9 +121,9 @@ function createCalendar() {
             } else if (logs[dateString]) {
                 createPopup(images[i], notes[i]);
             } else if (dateString < currentDate) {
-                createPopup("", "Kamu telah melewati hari ini tanpa membuka, tidak bisa diakses.");
+                createPopup("", "Yahhh ga dibuka pas tanggalnya :( jadi ga bisa dibukaaa");
             } else {
-                createPopup("", `Belum bisa diakses, datang lagi di tanggal ${dateString} untuk membuka.`);
+                createPopup("", `Belum bisa diakses, buka lagii pas tanggal ${dateString}. Sabar yaaa`);
             }
         });
 
@@ -117,8 +138,57 @@ function createCalendar() {
     }
 }
 
+// Define your random messages
+const messages = [
+    "Haiii", "Helooww", "Heheehehhehehhe", "Heheee", "haaaaaaaaiiiiiii", "Sayangggggg", "Baee acuuuu", "Bee", "Bebebebbebbe", "Kangen", "Kangenn", "Kaaaangeeennnn", "Hehe", "❤️", "😻", "💛", "😭", "🥰", "😘", "💗", "🩷", "🩵", "🤍", "🫀", "💕", "🫶", "pelukk", "Ga sabarrr", "Sayang bangeet", "Sama gw terus yaaa", "Thanks yaaa selalu buat gw hepii", "Gw dibuat hepi mulu sama uuuu", "Hanzzzz", "Jel jel", "Hanzelll", "Mangaattt", "Sabar yooww", "Semoga sukaaa", "Temenin gw terus yaaa", "Ayo pergiii", "Ayok pergi mammm", "Jangan lupa minumm", "Minummm", "Sehat-sehat yaa senggg", "Seneng seneng yaaa", "Mangaaatt", "Kalo kangen bilanggg", "3 bulan paling bahagiaa", "Cowo yang paling gw sayang sedunia, seangkasa, sejagat raya", "Lucu banget sih kamu", "Pengen gigittt", "Rawrrr", "Yok nontonnn", "Pengen nyantai sama uuu", "Temenin gw sampe tua yaa hehe", "Diapain siiii sayang banget kacauuuu", "Gw dibikin sesayang ituuuu", "Senenggg ngeliat u manja hehe", "Suka bangettt", "Makin ketemu bukan makin bosen, makin sayaaangg gada obat", "Gw dibuat senempel ituuuu, gw lem juga ya luuu", "Mau dipeluk uu 24/7 365 selamanyaaa", "U charger gw hehee", "U pengisi energiii", "Tiap cape pengennya ketemu u ajaaa, serasa senyaman dan aman ituuu", "Mau masukin u ke kantong celana gw biar bisa dibawa kemana-manaaa", "Pengen makan bebek sama uuu", "Sekarang tiap pengen makan apa, langsung kepikiran mau makannya sama uuu", "Senenggg explore tempat sama uuu", "Seneng ngelakuin apapun sama uuu", "Kalo sama u diem doang pun seneng bangeeeet"
+  ];
+  
+  // Get elements
+  const chatIcon = document.getElementById('chatIcon');
+
+// When the chat icon is clicked, display a floating message
+chatIcon.addEventListener('click', function() {
+  // Select a random message
+  const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+  // Create a new element for the floating message
+  const floatingMessage = document.createElement('div');
+  floatingMessage.classList.add('floating-chat');
+  floatingMessage.textContent = randomMessage;
+
+  // Append the floating message inside the chat icon container (so it positions relative to the icon)
+  chatIcon.parentElement.appendChild(floatingMessage);
+
+  // Remove the floating message after the animation (3 seconds)
+  setTimeout(() => {
+    floatingMessage.remove();
+  }, 3000);
+});
+
+const heartIcon = document.getElementById("heartIcon");
+
+// Function to trigger beat animation
+function triggerBeat() {
+  heartIcon.classList.add("heart-beat");
+  setTimeout(() => {
+    heartIcon.classList.remove("heart-beat");
+  }, 400); // duration of the beat animation
+}
+
+// On click, trigger beat immediately
+heartIcon.addEventListener("click", triggerBeat);
+
+// Automatically trigger beat every 1 second
+setInterval(triggerBeat, 1500);
+
+
+
 // (format: YYYY, MM-1, DD, HH, MM, SS)
 const targetDate = new Date(2025, 3, 4, 17, 0, 0).getTime();
 startCountdown(targetDate);
 
 createCalendar();
+
+
+
+
