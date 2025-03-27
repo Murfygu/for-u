@@ -1,194 +1,289 @@
-function startCountdown(targetDate) {
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        
-        if (distance < 0) {
-            clearInterval(interval);
-            document.getElementById("countdown").innerHTML = "Waktu Habis!";
-        }
-    }
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    /* background-color: rgb(245, 199, 206); */
+    background-color: rgb(250, 235, 215);
+}
+
+h1{
+    text-align: center;
+    color: maroon;
+    font-size: 3rem;
+}
+
+.countdown-container{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: maroon;
+    font-size: xx-large;
+
+}
+
+.calendar-container{
+    text-align: center;
+    color: maroon;
+    font-size: large;
+    position: absolute;
+    bottom: 40px;
+}
+
+.calendar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+
+.day-box {
+    width: 60px;
+    height: 60px;
+    background: rgb(255, 193, 201);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(247, 147, 147);
+    cursor: pointer;
+    font-size: 1.2rem;
+    position: relative;
     
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
+}
+
+.day-box.logged::after {
+    content: "❤️";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: smaller;
+}
+
+.day-box.today{
+    background-color: rgb(252, 126, 126);
+}
+
+.day-box.before{
+    background-color: rgb(250, 156, 156);
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+.floating-heart {
+    position: absolute;
+    font-size: 10px;
+    color: red;
+    animation: floatUp 3s ease-in-out forwards;
+    left: 50%;
+    transform: translateX(-50%);
+}
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-50px); opacity: 0; }
+}
+
+/* color: antiquewhite; */
+
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    position: relative;
+    background: rgb(255, 224, 224);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    max-width: 500px;
+}
+
+.popup-content img {
+    width: 400px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.popup-content p {
+    font-size: 1.2rem;
+    color: maroon;
+}
+
+.close-btn {
+    position: absolute;
+    top: 3px;
+    right: 7px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 
-function createPopup(imageSrc, note) {
-    let popup = document.createElement("div");
-    popup.classList.add("popup");
 
-    let popupContent = document.createElement("div");
-    popupContent.classList.add("popup-content");
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
 
-    let closeBtn = document.createElement("span");
-    closeBtn.classList.add("close-btn");
-    closeBtn.innerHTML = "&times;";
+    h1 {
+        font-size: 2rem;
+    }
 
-    let img = document.createElement("img");
-    img.src = imageSrc;
-    img.alt = "Daily Image";
+    .countdown-container {
+        font-size: large;
+        padding: 10px;
+    }
 
-    let text = document.createElement("p");
-    text.textContent = note;
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* Buat grid 5 kolom */
+        gap: 5px;
+    }
 
-    closeBtn.addEventListener("click", function () {
-        popup.remove();
-    });
+    .day-box {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
 
-    popup.addEventListener("click", function (event) {
-        if (event.target === popup) {
-            popup.remove();
-        }
-    });
+    .popup {
+        width: 90%;
+        max-width: 400px;
+        padding: 30px;
+    }
 
-    popupContent.appendChild(closeBtn);
-    popupContent.appendChild(img);
-    popupContent.appendChild(text);
-    popup.appendChild(popupContent);
-    document.body.appendChild(popup);
-}
+    .popup-content img {
+        width: 100%;
+        max-width: 250px;
+    }
 
-document.addEventListener("click", function(e) {
-    // Create a heart element
-    const heart = document.createElement("div");
-    heart.classList.add("click-heart");
-    heart.textContent = "❤️";
-    
-    // Position the heart at the click/touch coordinates
-    // Use clientX and clientY for mouse clicks, adjust for scrolling if needed
-    heart.style.left = e.clientX + "px";
-    heart.style.top = e.clientY + "px";
-  
-    // Append the heart to the body
-    document.body.appendChild(heart);
-  
-    // Remove the heart after the animation completes (2 seconds)
-    setTimeout(() => {
-      heart.remove();
-    }, 2000);
-  });
-  
-
-function createCalendar() {
-    const calendarEl = document.getElementById("calendar");
-    let logs = JSON.parse(localStorage.getItem("logs")) || {};
-
-    let images = [
-        "img/day1.jpg", "img/day2.jpg", "img/day3.jpg", "img/day4.jpg", "img/day5.jpg",
-        "img/day6.jpg", "img/day7.jpg", "img/day8.jpg", "img/day9.jpg", "img/day10.jpg"
-    ];
-
-    let notes = [
-        "Hehe lagi tidurrr, kangennn sini tidurrr", "UAS kelas 12 pake baju daerah wkwkkw", "Dulu iseng gambarr hehe skrg cuman bisa coret2", "Kerjaan gw sama visel pas sem 1 di kelas b indo wkwkwk", 
-        "Nginep di apart temennn", "hehe", "Dulu belajar gitarr tapi ga bisa2 wkwkkw", "efwaipiii duluu", 
-        "Foto antique. H-1 yeeeyyy", "Foto sama bocyil di ikeaa. Yeeeeyy ketemuu jugaaaaa"
-    ];
-
-    // **Fixed Start Date: March 26, 2025**
-    const startDate = new Date(2025, 2, 26); // March is month 2 (0-based index)
-
-    for (let i = 0; i < 10; i++) {
-        let date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
-
-        // ✅ Fix: Use local date format to prevent UTC time shift
-        let dateString = date.toLocaleDateString("en-CA"); // Format: YYYY-MM-DD
-
-        let dayBox = document.createElement("div");
-        dayBox.classList.add("day-box");
-        dayBox.textContent = date.getDate();
-
-        if (logs[dateString]) {
-            dayBox.classList.add("logged");
-        }
-
-        dayBox.addEventListener("click", function () {
-            let currentDate = new Date().toLocaleDateString("en-CA");
-
-            if (dateString === currentDate) {
-                logs[dateString] = true;
-                localStorage.setItem("logs", JSON.stringify(logs));
-                dayBox.classList.add("logged");
-                createPopup(images[i], notes[i]);
-            } else if (logs[dateString]) {
-                createPopup(images[i], notes[i]);
-            } else if (dateString < currentDate) {
-                createPopup("", "Yahhh ga dibuka pas tanggalnya :( jadi ga bisa dibukaaa");
-            } else {
-                createPopup("", `Belum bisa diakses, buka lagii pas tanggal ${dateString}. Sabar yaaa`);
-            }
-        });
-
-        let currentDate = new Date().toLocaleDateString("en-CA");
-        if (dateString === currentDate) {
-            dayBox.classList.add("today");
-        } else if (dateString < currentDate) {
-            dayBox.classList.add("before");
-        }
-
-        calendarEl.appendChild(dayBox);
+    .close-btn {
+        font-size: 18px;
+        top: 5px;
+        right: 10px;
     }
 }
 
-// Define your random messages
-const messages = [
-    "Haiii", "Helooww", "Heheehehhehehhe", "Heheee", "haaaaaaaaiiiiiii", "Sayangggggg", "Baee acuuuu", "Bee", "Bebebebbebbe", "Kangen", "Kangenn", "Kaaaangeeennnn", "Hehe", "❤️", "😻", "💛", "😭", "🥰", "😘", "💗", "🩷", "🩵", "🤍", "🫀", "💕", "🫶", "pelukk", "Ga sabarrr", "Sayang bangeet", "Sama gw terus yaaa", "Thanks yaaa selalu buat gw hepii", "Gw dibuat hepi mulu sama uuuu", "Hanzzzz", "Jel jel", "Hanzelll", "Mangaattt", "Sabar yooww", "Semoga sukaaa", "Temenin gw terus yaaa", "Ayo pergiii", "Ayok pergi mammm", "Jangan lupa minumm", "Minummm", "Sehat-sehat yaa senggg", "Seneng seneng yaaa", "Mangaaatt", "Kalo kangen bilanggg", "3 bulan paling bahagiaa", "Cowo yang paling gw sayang sedunia, seangkasa, sejagat raya", "Lucu banget sih kamu", "Pengen gigittt", "Rawrrr", "Yok nontonnn", "Pengen nyantai sama uuu", "Temenin gw sampe tua yaa hehe", "Diapain siiii sayang banget kacauuuu", "Gw dibikin sesayang ituuuu", "Senenggg ngeliat u manja hehe", "Suka bangettt", "Makin ketemu bukan makin bosen, makin sayaaangg gada obat", "Gw dibuat senempel ituuuu, gw lem juga ya luuu", "Mau dipeluk uu 24/7 365 selamanyaaa", "U charger gw hehee", "U pengisi energiii", "Tiap cape pengennya ketemu u ajaaa, serasa senyaman dan aman ituuu", "Mau masukin u ke kantong celana gw biar bisa dibawa kemana-manaaa", "Pengen makan bebek sama uuu", "Sekarang tiap pengen makan apa, langsung kepikiran mau makannya sama uuu", "Senenggg explore tempat sama uuu", "Seneng ngelakuin apapun sama uuu", "Kalo sama u diem doang pun seneng bangeeeet"
-  ];
+
+.click-heart {
+    position: fixed;
+    pointer-events: none; /* Let clicks pass through */
+    font-size: 24px;
+    color: pink;
+    user-select: none;
+    z-index: 3000;
+    animation: fly 2s ease-out forwards;
+  }
   
-  // Get elements
-  const chatIcon = document.getElementById('chatIcon');
+  @keyframes fly {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(0, -100px) scale(1.5);
+    }
+  }
+ 
+/* Chat Box Container */
+#chatBox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3000;
+  }
+  
+  /* Chat Icon */
+  #chatIcon {
+    /* color: white;
+    border-radius: 50%; */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* font-size: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); */
+    position: relative;
+  }
+  
+  /* Floating chat message */
+  .floating-chat {
+    position: absolute;
+    bottom: 57px;
+    right: 5px;
+    background: rgba(250, 235, 215, 0.65);
+    color: maroon;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 1;
+    animation: floatUp 3s ease-out forwards;
+  }
+  
+  /* Animation for the floating chat message */
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+  }
+  
 
-// When the chat icon is clicked, display a floating message
-chatIcon.addEventListener('click', function() {
-  // Select a random message
-  const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-
-  // Create a new element for the floating message
-  const floatingMessage = document.createElement('div');
-  floatingMessage.classList.add('floating-chat');
-  floatingMessage.textContent = randomMessage;
-
-  // Append the floating message inside the chat icon container (so it positions relative to the icon)
-  chatIcon.parentElement.appendChild(floatingMessage);
-
-  // Remove the floating message after the animation (3 seconds)
-  setTimeout(() => {
-    floatingMessage.remove();
-  }, 3000);
-});
-
-const heartIcon = document.getElementById("heartIcon");
-
-// Function to trigger beat animation
-function triggerBeat() {
-  heartIcon.classList.add("heart-beat");
-  setTimeout(() => {
-    heartIcon.classList.remove("heart-beat");
-  }, 400); // duration of the beat animation
-}
-
-// On click, trigger beat immediately
-heartIcon.addEventListener("click", triggerBeat);
-
-// Automatically trigger beat every 1 second
-setInterval(triggerBeat, 1500);
-
-
-
-// (format: YYYY, MM-1, DD, HH, MM, SS)
-const targetDate = new Date(2025, 3, 4, 17, 0, 0).getTime();
-startCountdown(targetDate);
-
-createCalendar();
-
-
-
-
+  #heartIcon {
+    font-size: 2rem;
+    cursor: pointer;
+    display: inline-block;
+    /* Centering and basic styling */
+    transition: transform 0.4s ease;
+  }
+  
+  .heart-beat {
+    animation: beat 0.4s ease;
+  }
+  
+  @keyframes beat {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
