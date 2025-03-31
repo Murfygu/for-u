@@ -83,13 +83,13 @@ function createCalendar() {
 
     let images = [
         "img/day1.jpg", "img/day2.jpg", "img/day3.jpg", "img/day4.jpg", "img/day6.jpg",
-        "img/day5.jpg", "img/day7.jpg", "img/day8.jpg", "img/day9.jpg", "img/day10.jpg"
+        "img/day5.jpg", "img/day9.jpg", "img/day8.jpg", "img/day7.jpg", "img/day10.jpg"
     ];
 
     let notes = [
         "Hehe lagi tidurrr, kangennn sini tidurrr", "UAS kelas 12 pake baju daerah wkwkkw", "Dulu iseng gambarr hehe skrg cuman bisa coret2", "Kerjaan gw sama visel pas sem 1 di kelas b indo wkwkwk", 
-        "hehe", "Nginep di apart temennn", "Dulu belajar gitarr tapi ga bisa2 wkwkkw", "efwaipiii duluu", 
-        "Foto antique. H-1 yeeeyyy", "Foto sama bocyil di ikeaa. Yeeeeyy ketemuu jugaaaaa"
+        "hehe", "Nginep di apart temennn", "Foto antique hehee", "efwaipiii duluu", 
+        "Dulu belajar gitarr tapi ga bisa2 wkwkkw. H-1 yeeeyyy", "Foto sama bocyil di ikeaa. Yeeeeyy ketemuu jugaaaaa"
     ];
 
     // **Fixed Start Date: March 26, 2025**
